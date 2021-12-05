@@ -13,7 +13,6 @@ services:
     networks:
       - postgres
     restart: unless-stopped
-
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
