@@ -17,6 +17,9 @@ import org.springframework.context.annotation.PropertySources;
 @EnableFeignClients(
         basePackages = "com.amigoscode.clients"
 )
+@PropertySources({
+        @PropertySource("classpath:clients-${spring.profiles.active}.properties")
+})
 public class CustomerApplication {
     public static void main(String[] args) {
         SpringApplication.run(CustomerApplication.class, args);
