@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer
+  labels:
+    app: customer
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: customer
+      labels:
+        app: customer
+    spec:
+      containers:
+        - name: customer
+          image: amigoscode/customer:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: customer

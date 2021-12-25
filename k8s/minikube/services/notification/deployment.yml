@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification
+  labels:
+    app: notification
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: notification
+      labels:
+        app: notification
+    spec:
+      containers:
+        - name: notification
+          image: amigoscode/notification:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8083
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: notification
