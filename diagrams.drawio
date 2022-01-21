@@ -79,7 +79,7 @@
                         <mxPoint x="-200" y="280" as="sourcePoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="117" value="/customer" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="60" vertex="1" connectable="0">
+                <mxCell id="117" value="/appUser" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="60" vertex="1" connectable="0">
                     <mxGeometry x="-0.073" y="-1" relative="1" as="geometry">
                         <mxPoint x="8" y="-1" as="offset"/>
                     </mxGeometry>
@@ -538,7 +538,7 @@
                         <mxPoint x="-178" y="289" as="sourcePoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="sqeSvVJFWsEA9AuavhHC-12" value="/customer" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="sqeSvVJFWsEA9AuavhHC-11" vertex="1" connectable="0">
+                <mxCell id="sqeSvVJFWsEA9AuavhHC-12" value="/appUser" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="sqeSvVJFWsEA9AuavhHC-11" vertex="1" connectable="0">
                     <mxGeometry x="-0.073" y="-1" relative="1" as="geometry">
                         <mxPoint x="-29" y="-22" as="offset"/>
                     </mxGeometry>
@@ -740,7 +740,7 @@
                         <mxPoint x="-200" y="280" as="sourcePoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="58R5_0ambQ2_RqlJ0Scc-21" value="/customer" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="58R5_0ambQ2_RqlJ0Scc-20">
+                <mxCell id="58R5_0ambQ2_RqlJ0Scc-21" value="/appUser" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="58R5_0ambQ2_RqlJ0Scc-20">
                     <mxGeometry x="-0.073" y="-1" relative="1" as="geometry">
                         <mxPoint x="8" y="-1" as="offset"/>
                     </mxGeometry>

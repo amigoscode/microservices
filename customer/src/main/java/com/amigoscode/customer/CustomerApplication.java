@@ -22,6 +22,11 @@ import org.springframework.context.annotation.PropertySources;
 })
 public class CustomerApplication {
     public static void main(String[] args) {
+        new AppUser(
+                1,
+                "amigos", "hello",
+                "foobar@gmail.com"
+        );
         SpringApplication.run(CustomerApplication.class, args);
     }
 }

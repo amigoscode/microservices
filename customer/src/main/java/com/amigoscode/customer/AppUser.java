@@ -1,22 +1,18 @@
 package com.amigoscode.customer;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.GenerationType;
 
 @Data
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-public class Customer {
+public class AppUser {
 
     @Id
     @SequenceGenerator(
@@ -31,4 +27,17 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String email;
+
+    public AppUser(Integer id,
+                   String firstName, String lastName,
+                   String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
+    public AppUser() {
+    }
+
 }
