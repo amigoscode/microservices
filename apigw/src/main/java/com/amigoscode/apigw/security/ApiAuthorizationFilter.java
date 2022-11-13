@@ -4,7 +4,7 @@ package com.amigoscode.apigw.security;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.List;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.route.Route;
@@ -21,10 +21,14 @@ import reactor.core.publisher.Mono;
  * @author Ali Bouali
  */
 @Component
-@RequiredArgsConstructor
 public class ApiAuthorizationFilter implements GlobalFilter, Ordered {
 
-  private final ApiKeyService apiKeyService;
+  private final ApiService apiKeyService;
+
+  public ApiAuthorizationFilter(
+  @Qualifier("apiKeyServiceV2") ApiService apiKeyService) {
+    this.apiKeyService = apiKeyService;
+  }
 
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {

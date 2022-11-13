@@ -12,12 +12,13 @@ import org.springframework.stereotype.Service;
 /**
  * @author Ali Bouali
  */
-@Service
-public class ApiKeyService {
+@Service("apiKeyService")
+public class ApiKeyService implements ApiService {
 
   @Getter
   private final Map<String, List<String>> apiKeys = new HashMap<>();
 
+  @Override
   public void initialize() {
     // Customer API
     apiKeys.put(
@@ -25,15 +26,12 @@ public class ApiKeyService {
     );
   }
 
-  public List<String> getAuthorizedApis(String key) {
-    final var services = this.apiKeys.get(key);
-    return services == null ? Collections.emptyList() : services;
-  }
-
+  @Override
   public boolean isNotAuthorized(final String apiKey, final String service) {
     return !isAuthorized(apiKey, service);
   }
 
+  @Override
   public boolean isAuthorized(final String apiKey, final String service) {
     final var services = this.apiKeys.get(apiKey);
     if (isEmpty(services)) {
