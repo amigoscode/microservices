@@ -1,12 +1,14 @@
-package com.amigoscode.apimanagement.models;
+package com.amigoscode.apimanagement.application;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.amigoscode.apimanagement.apikey.ApiKey;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,33 +22,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Api {
+public class Application {
 
   @Id
   @GeneratedValue
   private Integer id;
 
-  @Column(unique = true, nullable = false)
-  private String key;
-
   @Column(nullable = false, unique = true)
   private String name;
 
-  private String description;
-
-  private LocalDateTime createdDated;
-
-  private LocalDateTime expirationDate;
-
   private boolean enabled;
-
-  private boolean neverExpires;
 
   private boolean approved;
 
   private boolean revoked;
 
-  @OneToMany(mappedBy = "api")
-  private List<Application> applications;
-
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "id")
+  private ApiKey apiKey;
 }

@@ -10,11 +10,17 @@
         <module name="notification" />
         <module name="apigw" />
         <module name="clients" />
+        <module name="api-management" />
         <module name="fraud" />
         <module name="amqp" />
         <module name="eureka-server" />
         <module name="customer" />
       </profile>
     </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="api-management" options="-parameters" />
+    </option>
   </component>
 </project>

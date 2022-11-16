@@ -8,9 +8,6 @@ import feign.jackson.JacksonEncoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * @author Ali Bouali
- */
 @Configuration
 public class ApiGWConfiguration {
 

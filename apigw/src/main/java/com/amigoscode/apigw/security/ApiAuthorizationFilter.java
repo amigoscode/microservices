@@ -17,16 +17,12 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-/**
- * @author Ali Bouali
- */
 @Component
 public class ApiAuthorizationFilter implements GlobalFilter, Ordered {
 
   private final ApiService apiKeyService;
 
-  public ApiAuthorizationFilter(
-  @Qualifier("apiKeyServiceV2") ApiService apiKeyService) {
+  public ApiAuthorizationFilter(@Qualifier("apiKeyServiceV2") ApiService apiKeyService) {
     this.apiKeyService = apiKeyService;
   }
 
@@ -35,8 +31,7 @@ public class ApiAuthorizationFilter implements GlobalFilter, Ordered {
     List<String> apiKeyHeader = exchange.getRequest().getHeaders().get("apiKey");
     Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
 
-    if (
-        route == null ||
+    if (route == null ||
             !StringUtils.hasLength(route.getId()) ||
             isEmpty(apiKeyHeader) ||
             apiKeyService.isNotAuthorized(apiKeyHeader.get(0), route.getId())
@@ -51,4 +46,5 @@ public class ApiAuthorizationFilter implements GlobalFilter, Ordered {
   public int getOrder() {
     return Ordered.LOWEST_PRECEDENCE;
   }
+
 }

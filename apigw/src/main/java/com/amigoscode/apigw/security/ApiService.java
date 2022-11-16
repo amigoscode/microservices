@@ -1,14 +1,11 @@
 package com.amigoscode.apigw.security;
 
-/**
- * @author Ali Bouali
- */
 public interface ApiService {
 
-  void initialize();
+  boolean  isAuthorized(String apiKey, String application);
 
-  boolean  isAuthorized(final String apiKey, final String service);
-
-  boolean isNotAuthorized(final String apiKey, final String service);
+  default boolean isNotAuthorized(String apiKey, String application) {
+    return !isAuthorized(apiKey, application);
+  }
 
 }

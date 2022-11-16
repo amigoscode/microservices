@@ -1,43 +1,21 @@
 package com.amigoscode.apigw.security;
 
-import static org.springframework.util.CollectionUtils.isEmpty;
-
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import lombok.Getter;
 import org.springframework.stereotype.Service;
 
-/**
- * @author Ali Bouali
- */
 @Service("apiKeyService")
 public class ApiKeyService implements ApiService {
 
-  @Getter
-  private final Map<String, List<String>> apiKeys = new HashMap<>();
+  private static final Map<String, List<String>> apiKeys = Map.of(
+          "VALID-API-KEY", List.of("CUSTOMER-API")
+  );
 
   @Override
-  public void initialize() {
-    // Customer API
-    apiKeys.put(
-        "VALID-API-KEY", List.of("CUSTOMER-API")
-    );
-  }
-
-  @Override
-  public boolean isNotAuthorized(final String apiKey, final String service) {
-    return !isAuthorized(apiKey, service);
-  }
-
-  @Override
-  public boolean isAuthorized(final String apiKey, final String service) {
-    final var services = this.apiKeys.get(apiKey);
-    if (isEmpty(services)) {
-      return false;
-    }
-    return services.contains(service);
+  public boolean isAuthorized(String apiKey, String service) {
+    return apiKeys.getOrDefault(apiKey, List.of())
+            .stream()
+            .anyMatch(s -> s.contains(service));
   }
 
 }
