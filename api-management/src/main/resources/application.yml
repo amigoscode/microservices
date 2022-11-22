@@ -1,0 +1,19 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: api-management
+  datasource:
+    password: password
+    url: jdbc:postgresql://localhost:5432/api_management
+    username: amigoscode
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  zipkin:
+    base-url: http://localhost:9411
