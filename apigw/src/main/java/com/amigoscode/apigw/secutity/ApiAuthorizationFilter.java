@@ -1,6 +1,7 @@
 package com.amigoscode.apigw.secutity;
 
 import java.util.List;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.route.Route;
@@ -22,7 +23,9 @@ public class ApiAuthorizationFilter implements GlobalFilter, Ordered {
 
   private final ApiService apiService;
 
-  public ApiAuthorizationFilter(ApiService apiService) {
+  public ApiAuthorizationFilter(
+      @Qualifier("api-management-service") ApiService apiService
+  ) {
     this.apiService = apiService;
   }
 

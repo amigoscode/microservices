@@ -2,6 +2,8 @@ server:
     port: 8083
 
 spring:
+    profiles:
+      active: default
     application:
         name: api-gateway
     zipkin:
