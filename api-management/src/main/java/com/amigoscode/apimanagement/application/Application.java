@@ -1,12 +1,6 @@
 package com.amigoscode.apimanagement.application;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import com.amigoscode.apimanagement.apikey.ApiKey;
 import lombok.AllArgsConstructor;
@@ -28,8 +22,9 @@ public class Application {
   @GeneratedValue
   private Integer id;
 
-  @Column(nullable = false, unique = true)
-  private String name;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private com.amigoscode.clients.Application name;
 
   private boolean enabled;
 
@@ -38,6 +33,9 @@ public class Application {
   private boolean revoked;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "id")
+  @JoinColumn(
+          name = "api_key_id",
+          referencedColumnName = "id"
+  )
   private ApiKey apiKey;
 }

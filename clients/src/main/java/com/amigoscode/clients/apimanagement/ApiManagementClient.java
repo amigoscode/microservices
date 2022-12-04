@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 )
 public interface ApiManagementClient {
 
-    @GetMapping("/api/v1/api-keys/{apiKey}/applications/{appName}/authorisations")
+    @GetMapping("/api/v1/api-keys/{apiKey}/applications/{application}/authorisations")
     ApiManagementResponse isKeyAuthorizedForApplication(
             @PathVariable("apiKey") String apiKey,
-            @PathVariable("appName") String appName
+            @PathVariable("application") String application
     );
 }

@@ -28,23 +28,24 @@ public class ApiKeyService {
     public String save(NewApiKeyRequest apiKeyRequest) {
         // todo validate the object first
         ApiKey api = new ApiKey();
-        api.setName(apiKeyRequest.name());
+        api.setClient(apiKeyRequest.client());
         api.setDescription(apiKeyRequest.description());
+
         String apiKey = generateApiKey.generate();
         api.setKey(apiKey);
+
         api.setExpirationDate(LocalDateTime.now().plusDays(EXPIRATION_DATE_IN_DAYS));
         api.setNeverExpires(false);
-        // todo (maybe) implement an approval mechanism
         api.setApproved(true);
-        // todo (maybe) implement an approval mechanism to enable the api
         api.setEnabled(true);
         api.setCreatedDated(LocalDateTime.now());
 
         var savedApi = repository.save(api);
 
         // assign application to API key
-        Set<Application> applications = Optional.ofNullable(apiKeyRequest.applications()).orElse(List.of()).stream().map(app -> Application.builder().name(app)
-                // todo better implement an approval mechanism
+        Set<Application> applications = Optional.ofNullable(apiKeyRequest.applications())
+                .orElse(List.of())
+                .stream().map(app -> Application.builder().name(app)
                 .enabled(true).revoked(false).approved(true).apiKey(savedApi).build()).collect(Collectors.toUnmodifiableSet());
 
         applicationRepository.saveAll(applications);
@@ -59,6 +60,7 @@ public class ApiKeyService {
         api.setEnabled(false);
         api.setApproved(false);
         repository.save(api);
+
         // when revoke an API-KEY -> App applications should be revoked too
         api.getApplications().forEach(app -> {
             app.setApproved(false);
@@ -69,7 +71,7 @@ public class ApiKeyService {
     }
 
     @Transactional
-    public boolean isAuthorized(String apiKey, String appName) {
+    public boolean isAuthorized(String apiKey, com.amigoscode.clients.Application appName) {
         var apiOptional = repository.findByKeyAndApplicationName(apiKey, appName);
         if (apiOptional.isEmpty()) {
             return false;

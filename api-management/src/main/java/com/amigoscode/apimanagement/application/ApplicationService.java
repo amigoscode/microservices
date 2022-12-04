@@ -13,7 +13,7 @@ public class ApplicationService {
   private final ApplicationRepository repository;
   private final ApiKeyRepository apiKeyRepository;
 
-  public void assignToApiKey(String appName, String apiKey) {
+  public void assignToApiKey(com.amigoscode.clients.Application appName, String apiKey) {
     var key = apiKeyRepository.findByKey(apiKey)
         .orElseThrow(() -> new EntityNotFoundException("No api was found"));
 

@@ -4,6 +4,7 @@ package com.amigoscode.apigw.security;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -18,33 +19,34 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @Component
-public class ApiAuthorizationFilter implements GlobalFilter, Ordered {
+public class ApiAuthorizationFilter
+        implements GlobalFilter, Ordered {
 
-  private final ApiService apiKeyService;
+    private final ApiKeyAuthorizationChecker apiKeyAuthorizationChecker;
 
-  public ApiAuthorizationFilter(@Qualifier("apiKeyServiceV2") ApiService apiKeyService) {
-    this.apiKeyService = apiKeyService;
-  }
-
-  @Override
-  public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-    List<String> apiKeyHeader = exchange.getRequest().getHeaders().get("apiKey");
-    Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
-
-    if (route == null ||
-            !StringUtils.hasLength(route.getId()) ||
-            isEmpty(apiKeyHeader) ||
-            apiKeyService.isNotAuthorized(apiKeyHeader.get(0), route.getId())
-    ) {
-      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You're not authorized to access this API");
+    public ApiAuthorizationFilter(
+            @Qualifier("main") ApiKeyAuthorizationChecker apiKeyAuthorizationChecker) {
+        this.apiKeyAuthorizationChecker = apiKeyAuthorizationChecker;
     }
 
-    return chain.filter(exchange);
-  }
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        List<String> apiKeyHeader = exchange.getRequest().getHeaders().get("X-Api-Key");
+        Route route = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
 
-  @Override
-  public int getOrder() {
-    return Ordered.LOWEST_PRECEDENCE;
-  }
+        if (
+               isEmpty(apiKeyHeader) ||
+                !apiKeyAuthorizationChecker.isAuthorized(apiKeyHeader.get(0), route.getUri().getHost())
+        ) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You're not authorized to access this API");
+        }
+
+        return chain.filter(exchange);
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.LOWEST_PRECEDENCE;
+    }
 
 }

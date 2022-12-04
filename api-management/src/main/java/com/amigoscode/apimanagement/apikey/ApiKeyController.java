@@ -1,5 +1,6 @@
 package com.amigoscode.apimanagement.apikey;
 
+import com.amigoscode.clients.Application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +23,11 @@ public class ApiKeyController {
     apiKeyService.revokeApi(apiKey);
   }
 
-  @GetMapping("{apiKey}/applications/{appName}/authorisations")
+  @GetMapping("{apiKey}/applications/{application}/authorisations")
   public ResponseEntity<Boolean> isKeyAuthorizedForApplication(
           @PathVariable("apiKey") String apiKey,
-          @PathVariable("appName") String appName) {
-    return ResponseEntity.ok(apiKeyService.isAuthorized(apiKey, appName));
+          @PathVariable("application") Application application) {
+    return ResponseEntity.ok(apiKeyService.isAuthorized(apiKey, application));
   }
 
 }

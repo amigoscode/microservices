@@ -1,9 +1,11 @@
 package com.amigoscode.apimanagement.apikey;
 
+import com.amigoscode.clients.Application;
+
 import java.util.List;
 
 public record NewApiKeyRequest (
-        String name,
+        String client,
         String description,
-        List<String> applications) {
+        List<Application> applications) {
 }

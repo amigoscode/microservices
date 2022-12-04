@@ -32,7 +32,7 @@ public class ApiKey {
   private String key;
 
   @Column(nullable = false, unique = true)
-  private String name;
+  private String client;
 
   private String description;
 

@@ -1,6 +1,8 @@
 package com.amigoscode.apimanagement.apikey;
 
 import java.util.Optional;
+
+import com.amigoscode.clients.Application;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -14,7 +16,7 @@ public interface ApiKeyRepository extends JpaRepository<ApiKey, Integer> {
     WHERE a.key = :key
     AND ap.name = :appName
   """)
-  Optional<ApiKey> findByKeyAndApplicationName(String key, String appName);
+  Optional<ApiKey> findByKeyAndApplicationName(String key, Application appName);
 
   @Query("""
     SELECT

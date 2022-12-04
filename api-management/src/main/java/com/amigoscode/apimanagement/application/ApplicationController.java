@@ -1,10 +1,8 @@
 package com.amigoscode.apimanagement.application;
 
+import com.amigoscode.clients.Application;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/api-management/applications")
@@ -20,9 +18,9 @@ public class ApplicationController {
         applicationService.revokeApplication(appName, apiKey);
     }
 
-    @DeleteMapping("{appName}/authorise/{apiKey}")
+    @PutMapping("{appName}/authorise/{apiKey}")
     public void assignApplicationToApiKey(
-            @PathVariable("appName") String appName,
+            @PathVariable("appName") Application appName,
             @PathVariable("apiKey") String apiKey) {
         applicationService.assignToApiKey(appName, apiKey);
     }
