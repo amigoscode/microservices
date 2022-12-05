@@ -46,7 +46,7 @@ public class ApiKeyService {
         Set<Application> applications = Optional.ofNullable(apiKeyRequest.applications())
                 .orElse(List.of())
                 .stream().map(app -> Application.builder().name(app)
-                .enabled(true).revoked(false).approved(true).apiKey(savedApi).build()).collect(Collectors.toUnmodifiableSet());
+                        .enabled(true).revoked(false).approved(true).apiKey(savedApi).build()).collect(Collectors.toUnmodifiableSet());
 
         applicationRepository.saveAll(applications);
 
@@ -79,7 +79,18 @@ public class ApiKeyService {
 
         var key = apiOptional.get();
 
-        return key.getApplications().stream().filter(app -> app.getName().equals(appName)).findFirst().map(a -> a.isEnabled() && a.isApproved() && !a.isRevoked() && key.isApproved() && key.isEnabled() && !key.isRevoked() && (key.isNeverExpires() || LocalDateTime.now().isBefore(key.getExpirationDate()))).orElse(false);
+        return key.getApplications()
+                .stream()
+                .filter(app -> app.getName().equals(appName))
+                .findFirst()
+                .map(a -> a.isEnabled() &&
+                        a.isApproved() &&
+                        !a.isRevoked() &&
+                        key.isApproved() &&
+                        key.isEnabled() &&
+                        !key.isRevoked() &&
+                        (key.isNeverExpires() || LocalDateTime.now().isBefore(key.getExpirationDate())))
+                .orElse(false);
     }
 
 }
