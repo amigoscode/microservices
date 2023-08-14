@@ -30,6 +30,8 @@
         <spring.boot.dependencies.version>2.5.7</spring.boot.dependencies.version>
         <spring.cloud-version>2020.0.3</spring.cloud-version>
         <image>amigoscode/${project.artifactId}:${project.version}</image>
+        <sonar.organization>sander-org</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencyManagement>
